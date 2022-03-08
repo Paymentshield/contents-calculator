@@ -6,10 +6,16 @@
 	import Bedrooms from '$lib/Bedrooms.svelte';
 	import BathroomGarage from '$lib/BathroomGarage.svelte';
 	import ShedGarden from '$lib/ShedGarden.svelte';
+  import { goto } from '$app/navigation';
+import Header from '$lib/header/Header.svelte';
 
 	let stepCount = 0;
 
 	function handleClick(direction) {
+    if (stepCount === 6 && direction === 'next') {
+      goto('/result') 
+    }
+
 		if (direction === 'start') {
 			stepCount = 1;
 		} else if (direction === 'next') {
@@ -24,11 +30,7 @@
 	<title>Paymentshield | Contents Calculator</title>
 </svelte:head>
 
-<div class="flex flex-row items-center bg-white pb-4">
-	<img class="h-10 m-3" src="./images/logo.png" alt="ChitChat Logo" />
-	<div class="vl mt-2 mx-3" />
-	<h4 class="text-3 font-bold">Contents Calculator</h4>
-</div>
+<Header />
 
 {#if stepCount === 0}
 	<div class="flex flex-col items-center">
@@ -84,23 +86,25 @@
 
 		<button
 			class="bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded w-full ml-2"
-			class:disabled={stepCount === 6}
-			disabled={stepCount === 6}
+			class:calculate={stepCount === 6}
 			on:click={() => handleClick('next')}
 		>
-			Next
+			{#if stepCount === 6}
+				Calculate
+			{:else}
+				Next
+			{/if}
 		</button>
 	{/if}
 </div>
 
 <style>
-	.vl {
-		border-left: 2px solid rgb(85, 85, 85);
-		height: 50px;
-	}
-
 	button:disabled {
 		background-color: grey;
 		cursor: not-allowed;
+	}
+
+	.calculate {
+		background-color: orange
 	}
 </style>
