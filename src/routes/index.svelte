@@ -13,7 +13,7 @@
 
 	function handleClick(direction) {
     if (stepCount === 6 && direction === 'next') {
-      goto('/result') 
+      goto('result') 
     }
 
 		if (direction === 'start') {
