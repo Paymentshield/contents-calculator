@@ -2,13 +2,26 @@
 	import KitchenStore from '../stores/KitchenStore';
 	import { mapReduce } from '../services/mapReduce';
 	import Total from '$lib/Total.svelte';
+	import { fade, slide } from 'svelte/transition';
+	import { tweened } from 'svelte/motion';
+	import { cubicOut } from 'svelte/easing';
 
 	const total = mapReduce(KitchenStore, (item) => item.selectedPrice);
+
+	export let maxSteps;
+	export let step;
+
+	const progressPercentage = (100 / maxSteps) * step;
+
+	const progress = tweened(0.25, {
+		duration: 400,
+		easing: cubicOut
+	});
 </script>
 
-<Total label={'Kitchen'} total={$total.toLocaleString()} />
+<Total label={'Kitchen'} total={$total.toLocaleString()} progress={0.32}/>
 
-<div class="flex flex-col p-4">
+<div class="flex flex-col p-4" in:fade>
 	{#each $KitchenStore as item (item.id)}
 		<h1 class="text-md font-bold mt-4">{item.label}</h1>
 		<div class="relative inline-block w-full text-gray-700 mt-2">
@@ -33,3 +46,25 @@
 		</div>
 	{/each}
 </div>
+
+<style>
+	progress {
+		display: block;
+		width: 100%;
+	}
+
+	progress {
+		-webkit-appearance: none;
+	}
+	.progress1::-webkit-progress-bar {
+		background-color: gray;
+	}
+
+	.progress1::-webkit-progress-value {
+		background-color: #99ffc9;
+	}
+
+	.progress2::-webkit-progress-value {
+		background-color: orange;
+	}
+</style>

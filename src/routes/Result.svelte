@@ -5,7 +5,6 @@
 	import KitchenStore from '../stores/KitchenStore';
 	import DiningRoomStore from '../stores/DiningRoomStore';
 	import BedroomsStore from '../stores/BedroomsStore';
-	import DiningRoom from '$lib/DiningRoom.svelte';
 	import BathroomGarageStore from '../stores/BathroomGarageStore';
 	import ShedGardenStore from '../stores/ShedGardenStore';
 	import Header from '$lib/header/Header.svelte';
@@ -16,6 +15,7 @@
 	const bedroomsTotal = mapReduce(BedroomsStore, (room) => room.selectedPrice);
 	const bathroomTotal = mapReduce(BathroomGarageStore, (item) => item.selectedPrice);
 	const shedGardenTotal = mapReduce(ShedGardenStore, (item) => item.selectedPrice);
+	console.log($bedroomsTotal)
 
 	const total =
 		$livingRoomTotal +
@@ -99,7 +99,7 @@
 	</table>
 
 	<button
-		class="bg-gray-700 hover:bg-gray-500 text-white font-bold py-2 px-4 rounded mt-5"
+		class="bg-[#2C3536] hover:bg-gray-500 text-white font-bold py-2 px-4 rounded mt-5"
 		on:click={() => recalculate()}
 	>
 		Recalculate
@@ -113,9 +113,7 @@
 		font-style: normal;
 		border-collapse: collapse;
 		width: 100%;
-		border-radius: 15px;
-
-		/* add this */
+		border-radius: 5px;
 		overflow: hidden;
 	}
 </style>

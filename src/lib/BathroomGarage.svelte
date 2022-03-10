@@ -2,15 +2,14 @@
 	import BathroomGarageStore from '../stores/BathroomGarageStore';
 	import { mapReduce } from '../services/mapReduce';
 	import Total from '$lib/Total.svelte';
+	import { fade, slide } from 'svelte/transition';
 
-	let sofas = 0;
-	let otherFurniture = 0;
 	const total = mapReduce(BathroomGarageStore, (room) => room.selectedPrice);
 </script>
 
-<Total label={'Bathroom, garage and other'} total={$total.toLocaleString()} />
+<Total label={'Bathroom, garage and other'} total={$total.toLocaleString()} progress={0.81}/>
 
-<div class="flex flex-col p-4">
+<div class="flex flex-col p-4" in:fade>
 	{#each $BathroomGarageStore as room (room.id)}
 		<h1 class="text-md font-bold mt-4">{room.label}</h1>
 		<div class="relative inline-block w-full text-gray-700 mt-2">

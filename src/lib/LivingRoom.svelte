@@ -1,16 +1,35 @@
 <script>
+	import { fade, slide } from 'svelte/transition';
+	import { tweened } from 'svelte/motion';
+	import { cubicOut } from 'svelte/easing';
+
 	import LivingRoomStore from '../stores/LivingRoomStore';
 	import { mapReduce } from '../services/mapReduce';
 	import Total from '$lib/Total.svelte';
 
-	let sofas = 0;
-	let otherFurniture = 0;
+	export let maxSteps
+	export let step
+
+	let progressPercentage = 0
+	
+	if (step === 1) {
+		progressPercentage = 0
+	} else {
+		progressPercentage = (maxSteps / 100) * step
+	}
+
+
+	const progress = tweened(progressPercentage, {
+		duration: 400,
+		easing: cubicOut
+	});
+
 	const total = mapReduce(LivingRoomStore, (room) => room.selectedPrice);
 </script>
 
-<Total label={'Living Room'} total={$total.toLocaleString()} />
+<Total label={'Living Room'} total={$total.toLocaleString()} progress={0.16}/>
 
-<div class="flex flex-col p-4">
+<div class="flex flex-col p-4" in:fade>
 	{#each $LivingRoomStore as room (room.id)}
 		<h1 class="text-md font-bold mt-4">{room.label}</h1>
 		<div class="relative inline-block w-full text-gray-700 mt-2">
