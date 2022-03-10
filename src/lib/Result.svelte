@@ -7,7 +7,6 @@
 	import BedroomsStore from '../stores/BedroomsStore';
 	import BathroomGarageStore from '../stores/BathroomGarageStore';
 	import ShedGardenStore from '../stores/ShedGardenStore';
-	import Header from '$lib/header/Header.svelte';
 
 	const livingRoomTotal = mapReduce(LivingRoomStore, (item) => item.selectedPrice);
 	const kitchenTotal = mapReduce(KitchenStore, (item) => item.selectedPrice);
@@ -15,7 +14,6 @@
 	const bedroomsTotal = mapReduce(BedroomsStore, (room) => room.selectedPrice);
 	const bathroomTotal = mapReduce(BathroomGarageStore, (item) => item.selectedPrice);
 	const shedGardenTotal = mapReduce(ShedGardenStore, (item) => item.selectedPrice);
-	console.log($bedroomsTotal)
 
 	const total =
 		$livingRoomTotal +
@@ -29,8 +27,6 @@
       window.location.href = "/";
     }
 </script>
-
-<Header />
 
 <div class="p-3">
 	<h1 class="text-2xl font-bold mb-2">Results</h1>

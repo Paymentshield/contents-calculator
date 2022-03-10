@@ -5,9 +5,8 @@
 	import Bedrooms from '$lib/Bedrooms.svelte';
 	import BathroomGarage from '$lib/BathroomGarage.svelte';
 	import ShedGarden from '$lib/ShedGarden.svelte';
-	import { goto } from '$app/navigation';
 	import Header from '$lib/header/Header.svelte';
-	import Result from './result.svelte';
+	import Result from '$lib/result.svelte';
 
 	let maxSteps = 7;
 	let stepCount = 0;
