@@ -84,6 +84,7 @@
 			{/if}
 		</button>
 	{/if}
+	<a sveltekit:prefetch href="/result">About</a>
 </div>
 
 <style>
