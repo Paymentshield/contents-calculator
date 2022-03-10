@@ -7,6 +7,7 @@
 	import BedroomsStore from '../stores/BedroomsStore';
 	import BathroomGarageStore from '../stores/BathroomGarageStore';
 	import ShedGardenStore from '../stores/ShedGardenStore';
+	import BathroomGarage from './BathroomGarage.svelte';
 
 	const livingRoomTotal = mapReduce(LivingRoomStore, (item) => item.selectedPrice);
 	const kitchenTotal = mapReduce(KitchenStore, (item) => item.selectedPrice);
@@ -23,13 +24,34 @@
 		$bathroomTotal +
 		$shedGardenTotal;
 
-    function recalculate () {
-      window.location.href = "/";
-    }
+	(async () => {
+		let formData = new FormData();
+		formData.append('Total', total);
+		formData.append('Living Room', $livingRoomTotal);
+		formData.append('Kitchen', $kitchenTotal);
+		formData.append('Dining Room', $diningRoomTotal);
+		formData.append('Bedrooms', $bedroomsTotal);
+		formData.append('Bathroom, Garage and Other', $bathroomTotal);
+		formData.append('Shed and Garden', $shedGardenTotal);
+
+		if (total) {
+			const rawResponse = await fetch(
+				'https://script.google.com/macros/s/AKfycbzZ_lI7ZRBy5xqXUxpr4ugb4OVHOfOhqH6C70Q--wLJPb3WbP-ydPpBSr23J3yNhzPUhQ/exec',
+				{
+					method: 'POST',
+					body: formData
+				}
+			);
+		}
+	})();
+
+	function recalculate() {
+		window.location.href = '/';
+	}
 </script>
 
 <div class="p-3">
-	<h1 class="text-2xl font-bold mb-2">Results</h1>
+	<h1 class="text-2xl font-bold mb-2">Resultss</h1>
 	<p>You've calculated the cost of your belongings as:</p>
 	<h3 class="text-3xl font-bold mt-1 mb-2">£{total.toLocaleString()}</h3>
 	<p>
