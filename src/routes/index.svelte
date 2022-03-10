@@ -7,15 +7,12 @@
 	import ShedGarden from '$lib/ShedGarden.svelte';
 	import { goto } from '$app/navigation';
 	import Header from '$lib/header/Header.svelte';
+	import Result from './result.svelte';
 
-	let maxSteps = 6;
+	let maxSteps = 7;
 	let stepCount = 0;
 
 	function handleClick(direction) {
-    if (stepCount === 6 && direction === 'next') {
-      goto('result') 
-    }
-
 		if (direction === 'start') {
 			stepCount = 1;
 		} else if (direction === 'next') {
@@ -33,7 +30,7 @@
 <Header />
 
 {#if stepCount === 0}
-	<div class="flex flex-col items-center">
+	<div class="flex flex-col items-center pb-4">
 		<p class="p-4 text-center">
 			To get an idea of what your contents are worth, use this app to pick the rough value
 			of each type of item in your house, room by room.
@@ -59,10 +56,12 @@
 	<BathroomGarage step={5} maxSteps/>
 {:else if stepCount === 6}
 	<ShedGarden step={6} maxSteps/>
+{:else if stepCount === 7}
+	<Result />
 {/if}
 
-<div class="p-3 flex justify-between">
-	{#if stepCount > 0}
+{#if stepCount > 0 && stepCount < maxSteps }
+	<div class="p-3 flex justify-between">
 		<button
 			class="bg-[#2C3536] hover:bg-gray-500 text-white font-bold py-2 px-4 rounded w-full mr-2"
 			class:disabled={stepCount === 1}
@@ -74,18 +73,17 @@
 
 		<button
 			class="bg-[#2C3536] hover:bg-gray-500 text-white font-bold py-2 px-4 rounded w-full ml-2"
-			class:calculate={stepCount === maxSteps}
+			class:calculate={stepCount === 6}
 			on:click={() => handleClick('next')}
 		>
-			{#if stepCount === maxSteps}
+			{#if stepCount === 6}
 				Calculate
 			{:else}
 				Next
 			{/if}
 		</button>
-	{/if}
-	<a sveltekit:prefetch href="/result">About</a>
-</div>
+	</div>
+{/if}
 
 <style>
 	button:disabled {
