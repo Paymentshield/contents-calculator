@@ -1,44 +1,18 @@
 <script>
 	import { fade, slide } from 'svelte/transition';
-	import { tweened } from 'svelte/motion';
-	import { cubicOut } from 'svelte/easing';
-
-	import LivingRoomStore from '../stores/LivingRoomStore';
-	import { mapReduce } from '../services/mapReduce';
-	import Total from '$lib/Total.svelte';
-
-	export let maxSteps
-	export let step
-
-	let progressPercentage = 0
-	
-	if (step === 1) {
-		progressPercentage = 0
-	} else {
-		progressPercentage = (maxSteps / 100) * step
-	}
-
-
-	const progress = tweened(progressPercentage, {
-		duration: 400,
-		easing: cubicOut
-	});
-
-	const total = mapReduce(LivingRoomStore, (room) => room.selectedPrice);
+  import LivingRoomStore from '../stores/LivingRoomStore';
 </script>
 
-<Total label={'Living Room'} total={$total.toLocaleString()} progress={0.16}/>
-
 <div class="flex flex-col p-4" in:fade>
-	{#each $LivingRoomStore as room (room.id)}
-		<h1 class="text-md font-bold mt-4">{room.label}</h1>
+	{#each $LivingRoomStore as item (item.id)}
+		<h1 class="text-md font-bold mt-4">{item.label}</h1>
 		<div class="relative inline-block w-full text-gray-700 mt-2">
 			<select
-				bind:value={room.selectedPrice}
+				bind:value={item.selectedPrice}
 				class="w-full h-10 pl-3 pr-6 text-base placeholder-gray-600 border rounded-md appearance-none focus:shadow-outline"
 				placeholder="Regular input"
 			>
-				{#each room.prices as price (price)}
+				{#each item.prices as price (price)}
 					<option value={price}>£{price}</option>
 				{/each}
 			</select>

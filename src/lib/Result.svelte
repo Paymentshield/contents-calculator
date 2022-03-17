@@ -1,5 +1,6 @@
 <script>
 	import { mapReduce } from '../services/mapReduce';
+	import { slide } from 'svelte/transition';
 
 	import LivingRoomStore from '../stores/LivingRoomStore';
 	import KitchenStore from '../stores/KitchenStore';
@@ -50,8 +51,8 @@
 	}
 </script>
 
-<div class="p-3">
-	<h1 class="text-2xl font-bold mb-2">Resultss</h1>
+<div class="p-4" in:slide>
+	<h1 class="text-2xl font-bold mb-2">Results</h1>
 	<p>You've calculated the cost of your belongings as:</p>
 	<h3 class="text-3xl font-bold mt-1 mb-2">£{total.toLocaleString()}</h3>
 	<p>

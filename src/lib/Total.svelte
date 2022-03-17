@@ -1,13 +1,19 @@
 <script>
+	import { tweened } from 'svelte/motion';
+	import { cubicOut } from 'svelte/easing';
+	import { slide } from 'svelte/transition';
+
+	
+
 	export let total = 0;
 	export let label = '';
-	export let progress = 0;
+	export let progress
 </script>
 
 <div class="flex flex-col sticky top-0 z-50 bg-[#2C3536] text-white shadow-xl">
 	<div class="flex flex-row items-baseline p-4">
 		<h4 class="text-2xl font-bold mr-5">{label}</h4>
-		<h1 class="text-3xl font-bold sticky top-400 z-50 grow text-right">£{total}</h1>
+		<h1 class="text-3xl font-bold sticky top-400 z-50 grow text-right" id="total">£{total}</h1>
 	</div>
 	<progress value={progress} />
 </div>

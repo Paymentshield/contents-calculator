@@ -1,13 +1,8 @@
 <script>
 	import ShedGardenStore from '../stores/ShedGardenStore';
-	import { mapReduce } from '../services/mapReduce';
-	import Total from '$lib/Total.svelte';
-	import { fade, slide } from 'svelte/transition';
-
-	const total = mapReduce(ShedGardenStore, (item) => item.selectedPrice);
+	import { fade } from 'svelte/transition';
 </script>
 
-<Total label={'Shed and Garden'} total={$total.toLocaleString()} progress={1}/>
 
 <div class="flex flex-col p-4" in:fade>
 	{#each $ShedGardenStore as item (item.id)}

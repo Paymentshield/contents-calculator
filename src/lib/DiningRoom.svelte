@@ -1,16 +1,8 @@
 <script>
 	import DiningRoomStore from '../stores/DiningRoomStore';
-	import { mapReduce } from '../services/mapReduce';
-	import Total from '$lib/Total.svelte';
-	import { fade, slide } from 'svelte/transition';
+	import { fade} from 'svelte/transition';
 
-	let sofas = 0;
-	let otherFurniture = 0;
-	const total = mapReduce(DiningRoomStore, (room) => room.selectedPrice);
 </script>
-
-<Total label={'Dining Room'} total={$total.toLocaleString()} progress={0.49}/>
-
 <div class="flex flex-col p-4" in:fade>
 	{#each $DiningRoomStore as room (room.id)}
 		<h1 class="text-md font-bold mt-4">{room.label}</h1>
