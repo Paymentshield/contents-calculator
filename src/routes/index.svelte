@@ -19,8 +19,8 @@
 	import KitchenStore from '../stores/KitchenStore';
 	import DiningRoomStore from '../stores/DiningRoomStore';
 	import BedroomsStore from '../stores/BedroomsStore';
-  import BathroomGarageStore from '../stores/BathroomGarageStore';
-  import ShedGardenStore from '../stores/ShedGardenStore';
+	import BathroomGarageStore from '../stores/BathroomGarageStore';
+	import ShedGardenStore from '../stores/ShedGardenStore';
 
 	let startingValue = 0;
 	let newTotal = 0;
@@ -32,27 +32,35 @@
 	let livingRoomTotal = 0;
 	let kitchenTotal = 0;
 	let diningRoomTotal = 0;
-  let bedroomsTotal = 0;
-  let bathroomGarageTotal = 0;
-  let shedGardenTotal = 0
+	let bedroomsTotal = 0;
+	let bathroomGarageTotal = 0;
+	let shedGardenTotal = 0;
 
 	let livingTotalStore = mapReduce(LivingRoomStore, (room) => room.selectedPrice);
-	livingTotalStore.subscribe((total) =>calculateNewTotal(livingRoomTotal, total, 2000, 'livingRoom'));
+	livingTotalStore.subscribe((total) =>
+		calculateNewTotal(livingRoomTotal, total, 2000, 'livingRoom')
+	);
 
 	const kitchenTotalStore = mapReduce(KitchenStore, (item) => item.selectedPrice);
 	kitchenTotalStore.subscribe((total) => calculateNewTotal(kitchenTotal, total, 2000, 'kitchen'));
 
 	const diningRoomStore = mapReduce(DiningRoomStore, (item) => item.selectedPrice);
-	diningRoomStore.subscribe((total) =>calculateNewTotal(diningRoomTotal, total, 2000, 'diningRoom'));
+	diningRoomStore.subscribe((total) =>
+		calculateNewTotal(diningRoomTotal, total, 2000, 'diningRoom')
+	);
 
-  const bedroomsStore = mapReduce(BedroomsStore, (item) => item.selectedPrice);
-	bedroomsStore.subscribe((total) =>calculateNewTotal(bedroomsTotal, total, 2000, 'bedrooms'));
+	const bedroomsStore = mapReduce(BedroomsStore, (item) => item.selectedPrice);
+	bedroomsStore.subscribe((total) => calculateNewTotal(bedroomsTotal, total, 2000, 'bedrooms'));
 
-  const bathroomGarageStore = mapReduce(BathroomGarageStore, (item) => item.selectedPrice);
-	bathroomGarageStore.subscribe((total) =>calculateNewTotal(bathroomGarageTotal, total, 2000, 'bathroomGarage'));
+	const bathroomGarageStore = mapReduce(BathroomGarageStore, (item) => item.selectedPrice);
+	bathroomGarageStore.subscribe((total) =>
+		calculateNewTotal(bathroomGarageTotal, total, 2000, 'bathroomGarage')
+	);
 
-  const shedGardenStore = mapReduce(ShedGardenStore, (item) => item.selectedPrice);
-	shedGardenStore.subscribe((total) =>calculateNewTotal(shedGardenTotal, total, 2000, 'shedGarden'));
+	const shedGardenStore = mapReduce(ShedGardenStore, (item) => item.selectedPrice);
+	shedGardenStore.subscribe((total) =>
+		calculateNewTotal(shedGardenTotal, total, 2000, 'shedGarden')
+	);
 
 	let progress = tweened(0, {
 		duration: 400,
@@ -90,19 +98,19 @@
 			progress.set(0.48);
 		}
 
-    if (stepCount === 4) {
+		if (stepCount === 4) {
 			roomLabel = 'Bedrooms';
 			calculateNewTotal(0, bedroomsTotal, 2000, 'bedrooms');
 			progress.set(0.62);
 		}
 
-    if (stepCount === 5) {
+		if (stepCount === 5) {
 			roomLabel = 'Bathroom, garage and other';
 			calculateNewTotal(0, bathroomGarageTotal, 2000, 'bathroomGarage');
 			progress.set(0.76);
 		}
 
-    if (stepCount === 6) {
+		if (stepCount === 6) {
 			roomLabel = 'Shed and Garden';
 			calculateNewTotal(0, shedGardenTotal, 2000, 'shedGarden');
 			progress.set(1);
@@ -154,11 +162,15 @@
 				diningRoomTotal = newTotal;
 			}
 
-      if (room === 'bathroomGaage') {
+      if (room === 'bedrooms') {
+				bedroomsTotal = newTotal;
+			}
+
+			if (room === 'bathroomGarage') {
 				bathroomGarageTotal = newTotal;
 			}
 
-      if (room === 'shedGarden') {
+			if (room === 'shedGarden') {
 				shedGardenTotal = newTotal;
 			}
 		}, stepTime);
